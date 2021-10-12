@@ -1,6 +1,6 @@
 from flask import Flask, request, Response
 import dao
-import json
+import json, time
 
 
 app = Flask(__name__)
@@ -19,6 +19,16 @@ def get_events():
     else:
         latest, data = dao.fetch_all_valid_entries()
         return Response(str(latest)+json.dumps(data), status=200)
+
+
+@app.route('/add', methods=['POST'])
+def post_event():
+    args = request.args
+    if 'activision' not in args or 'expiry' not in args or 'content' not in args:
+        return Response(status=400)
+    else:
+        dao.insert_entry(int(time.time()), args['activision'], args['expiry'], args['content'])
+        return Response(status=201)
 
 
 if __name__ == "__main__": 

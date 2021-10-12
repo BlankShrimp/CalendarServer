@@ -1,4 +1,4 @@
-import sqlite3, time, json
+import sqlite3, time
 
 
 def init_db_if_not_exists():
@@ -9,9 +9,6 @@ def init_db_if_not_exists():
         activite_time integer, 
         expire_time integer,
         content text)''')
-    cursor.execute('''create table if not exists 
-        credentials(uuid text primary key, 
-        pubkey text)''')
     conn.commit()
     conn.close()
 
