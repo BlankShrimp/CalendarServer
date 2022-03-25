@@ -5,6 +5,7 @@ import json, time
 
 
 app = Flask(__name__)
+dao.init_db_if_not_exists()
 
 @app.route('/begin', methods=['GET'])
 def begin():
@@ -50,5 +51,4 @@ def eliminate_by_hashvalue(): #hashvalue
 
 
 if __name__ == "__main__": 
-    dao.init_db_if_not_exists()
     app.run(debug = True, port = 80, host = '0.0.0.0')
